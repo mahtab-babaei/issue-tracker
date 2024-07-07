@@ -18,6 +18,7 @@ const NavBar = () => {
       </Link>
       {links.map((link) => (
         <Link
+          key={link.href}
           className={classnames({
             "text-zinc-900": link.href === currentPath,
             "text-zinc-500": link.href !== currentPath,
