@@ -1,7 +1,7 @@
 import prisma from "@/prisma/client";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-// import bcrypt from "bcrypt";
+import bcrypt from "bcrypt";
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 
 
@@ -23,22 +23,13 @@ const handler = NextAuth({
 
         if (!user) return null;
 
-        if (user.hashedPassword === credentials.password) 
-          return user;
-        else
-          return null;
+        const passwordsMatch = await bcrypt.compare(
+          credentials.password, 
+          user.hashedPassword
+        );
 
-      //   // ** I should use this logic but it doesn't work (don't know why) **
-      //   const passwordsMatch = await bcrypt.compare(
-      //     credentials.password, 
-      //     user.hashedPassword
-      //   );
-
-      //   if (passwordsMatch) 
-      //     return user;
-      //   else
-      //     return null;
-      }
+        return passwordsMatch ? user : null;
+      }  
     })
   ],
   session: {
