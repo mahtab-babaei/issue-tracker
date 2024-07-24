@@ -32,7 +32,8 @@ const NavBar = () => {
           {link.label}
         </Link>
       ))}
-      <Box>
+      <Box className="space-x-6">
+        <Link href="/auth/signup">Sign Up</Link>
         {status === "unauthenticated" && (
           <Link href="/api/auth/signin">Login</Link>
         )}
