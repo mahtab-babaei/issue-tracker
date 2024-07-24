@@ -32,15 +32,15 @@ const NavBar = () => {
           {link.label}
         </Link>
       ))}
-      <Box className="space-x-6">
-        <Link href="/auth/signup">Sign Up</Link>
-        {status === "unauthenticated" && (
+      {status === "unauthenticated" && (
+        <Box className="space-x-6">
+          <Link href="/auth/signup">Sign up</Link>
           <Link href="/api/auth/signin">Login</Link>
-        )}
-        {status === "authenticated" && (
-          <Link href="/api/auth/signout">Log out</Link>
-        )}
-      </Box>
+        </Box>
+      )}
+      {status === "authenticated" && (
+        <Link href="/api/auth/signout">Log out</Link>
+      )}
     </nav>
   );
 };
