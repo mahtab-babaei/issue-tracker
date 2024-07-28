@@ -1,4 +1,5 @@
 "use client";
+import { Skeleton } from "@/app/components";
 import { Avatar, Container, DropdownMenu, Flex, Text } from "@radix-ui/themes";
 import classnames from "classnames";
 import { useSession } from "next-auth/react";
@@ -10,7 +11,7 @@ const NavBar = () => {
   return (
     <nav className="border-b space-x-6 py-3 px-5 mb-5 items-center">
       <Container>
-        <Flex justify='between' gap={{initial: '2', xs: '3'}}>
+        <Flex justify="between" gap={{ initial: "2", xs: "3" }}>
           <NavLinks />
           <AuthStatus />
         </Flex>
@@ -28,7 +29,7 @@ const NavLinks = () => {
   ];
 
   return (
-    <Flex gap={{initial: '2', xs: '3'}} align="center">
+    <Flex gap={{ initial: "2", xs: "3" }} align="center">
       <Link href="/">
         <AiFillBug className="text-amber-600" />
       </Link>
@@ -50,15 +51,12 @@ const NavLinks = () => {
 
 const AuthStatus = () => {
   const { status, data: session } = useSession();
-  if (status === "loading") return null;
+  if (status === "loading") return <Skeleton width='4rem' height='1.8rem' />;
 
   if (status === "unauthenticated")
     return (
-      <Flex gap={{initial: '2', xs: '3'}} align="center">
-        <Link
-          href="/api/auth/signin"
-          className="nav-link"
-        >
+      <Flex gap={{ initial: "2", xs: "3" }} align="center">
+        <Link href="/api/auth/signin" className="nav-link">
           Login
         </Link>
         <Link
@@ -77,7 +75,7 @@ const AuthStatus = () => {
             src={session!.user!.image!}
             fallback={session!.user!.email!.slice(0, 1)}
             radius="full"
-            size='2'
+            size="2"
           />
         </Text>
       </DropdownMenu.Trigger>
