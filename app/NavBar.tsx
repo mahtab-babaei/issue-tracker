@@ -4,7 +4,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AiFillBug } from "react-icons/ai";
 import { useSession } from "next-auth/react";
-import { Badge, Box, Container, Flex } from "@radix-ui/themes";
+import {
+  Avatar,
+  Box,
+  Container,
+  Flex,
+  Text,
+  DropdownMenu,
+} from "@radix-ui/themes";
 
 const NavBar = () => {
   const currentPath = usePathname();
@@ -15,7 +22,7 @@ const NavBar = () => {
     { label: "Issues", href: "/issues/list" },
   ];
   return (
-    <nav className="border-b space-x-6 p-5 mb-5 items-center">
+    <nav className="border-b space-x-6 py-3 px-5 mb-5 items-center">
       <Container>
         <Flex justify={{ initial: "center", xs: "between" }} gap="3">
           <Flex gap="3" align="center">
@@ -54,12 +61,24 @@ const NavBar = () => {
               </Flex>
             )}
             {status === "authenticated" && (
-              <Link
-                href="/api/auth/signout"
-                className="text-zinc-500 hover:text-amber-600 transition-colors"
-              >
-                Log out
-              </Link>
+              <DropdownMenu.Root>
+                <DropdownMenu.Trigger>
+                  <Text size='8' className="cursor-pointer">
+                    <Avatar
+                      src={session.user!.image!}
+                      fallback={session.user!.email!.slice(0, 1)}
+                      radius="full"
+                    />
+                  </Text>
+                </DropdownMenu.Trigger>
+
+                <DropdownMenu.Content>
+                  <DropdownMenu.Label>{session.user!.email}</DropdownMenu.Label>
+                  <DropdownMenu.Item>
+                    <Link href="/api/auth/signout">Log out</Link>
+                  </DropdownMenu.Item>
+                </DropdownMenu.Content>
+              </DropdownMenu.Root>
             )}
           </Box>
         </Flex>
