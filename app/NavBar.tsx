@@ -17,7 +17,7 @@ const NavBar = () => {
   return (
     <nav className="border-b space-x-6 p-5 mb-5 items-center">
       <Container>
-        <Flex justify="between">
+        <Flex justify={{ initial: "center", xs: "between" }} gap="3">
           <Flex gap="3" align="center">
             <Link href="/">
               <AiFillBug className="text-amber-600" />
@@ -40,16 +40,16 @@ const NavBar = () => {
             {status === "unauthenticated" && (
               <Flex gap="3" align="center">
                 <Link
-                  href="/auth/signup"
-                  className="ring-none ring-inset bg-amber-50 rounded-lg p-1 text-amber-600 hover:ring-1 ring-amber-600 transition-all"
-                >
-                  Sign up
-                </Link>
-                <Link
                   href="/api/auth/signin"
                   className="text-zinc-500 hover:text-amber-600 transition-colors"
                 >
                   Login
+                </Link>
+                <Link
+                  href="/auth/signup"
+                  className="ring-none ring-inset bg-amber-50 rounded-lg p-1 text-amber-600 hover:ring-1 ring-amber-600 transition-all truncate"
+                >
+                  Sign up
                 </Link>
               </Flex>
             )}
