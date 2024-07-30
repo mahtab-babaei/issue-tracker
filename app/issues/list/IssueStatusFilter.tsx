@@ -17,14 +17,17 @@ const IssueStatusFilter = () => {
   return (
     <Select.Root
       onValueChange={(status) => {
-        const query = status === 'ALL' ? '' : `?status=${status}`;
-        router.push('/issues/list' + query);
+        const query = status === "ALL" ? "" : `?status=${status}`;
+        router.push("/issues/list" + query);
       }}
     >
       <Select.Trigger placeholder="Filter by status..." />
       <Select.Content>
         {statuses.map((status) => (
-          <Select.Item key={status.value} value={status.value ?? "ALL"}>
+          <Select.Item
+            key={status.value ?? "ALL"}
+            value={status.value ?? "ALL"}
+          >
             {status.label}
           </Select.Item>
         ))}
