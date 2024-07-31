@@ -1,13 +1,17 @@
 import { IssueStatusBadge, Link } from "@/app/components/";
 import prisma from "@/prisma/client";
 import { Issue, Status } from "@prisma/client";
-import { DoubleArrowUpIcon } from "@radix-ui/react-icons";
+import { DoubleArrowDownIcon, DoubleArrowUpIcon } from "@radix-ui/react-icons";
 import { Table } from "@radix-ui/themes";
 import NextLink from "next/link";
 import IssueActions from "./IssueActions";
 
 interface Props {
-  searchParams: { status: Status; orderBy: keyof Issue };
+  searchParams: {
+    status: Status;
+    orderBy: keyof Issue;
+    sortOrder: "asc" | "desc";
+  };
 }
 
 const IssuesPage = async ({ searchParams }: Props) => {
@@ -25,8 +29,14 @@ const IssuesPage = async ({ searchParams }: Props) => {
   const orderBy = columns
     .map((column) => column.value)
     .includes(searchParams.orderBy)
-    ? { [searchParams.orderBy]: "asc" }
+    ? { [searchParams.orderBy]: searchParams.sortOrder }
     : undefined;
+
+  const toggleOrder = () => {
+    return !searchParams.sortOrder || searchParams.sortOrder === "desc"
+      ? "asc"
+      : "desc";
+  };
 
   const issues = await prisma.issue.findMany({
     where: {
@@ -47,12 +57,21 @@ const IssuesPage = async ({ searchParams }: Props) => {
                 className={column.className}
               >
                 <NextLink
-                  href={{ query: { ...searchParams, orderBy: column.value } }}
+                  href={{
+                    query: {
+                      ...searchParams,
+                      orderBy: column.value,
+                      sortOrder: toggleOrder(),
+                    },
+                  }}
                 >
                   {column.label}
-                  {column.value === searchParams.orderBy && (
-                    <DoubleArrowUpIcon className="inline ml-1 size-3" />
-                  )}
+                  {column.value === searchParams.orderBy &&
+                    (searchParams.sortOrder === "asc" ? (
+                      <DoubleArrowUpIcon className="inline ml-1 size-3" />
+                    ) : (
+                      <DoubleArrowDownIcon className="inline ml-1 size-3" />
+                    ))}
                 </NextLink>
               </Table.ColumnHeaderCell>
             ))}
