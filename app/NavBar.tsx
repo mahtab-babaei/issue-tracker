@@ -31,7 +31,7 @@ const NavLinks = () => {
   return (
     <Flex gap={{ initial: "2", xs: "3" }} align="center">
       <Link href="/">
-        <AiFillBug className="text-amber-600" />
+        <AiFillBug className="text-custom-amber" />
       </Link>
       {links.map((link) => (
         <Link
@@ -51,7 +51,7 @@ const NavLinks = () => {
 
 const AuthStatus = () => {
   const { status, data: session } = useSession();
-  if (status === "loading") return <Skeleton width='4rem' height='1.8rem' />;
+  if (status === "loading") return <Skeleton width="4rem" height="1.8rem" />;
 
   if (status === "unauthenticated")
     return (
@@ -61,7 +61,7 @@ const AuthStatus = () => {
         </Link>
         <Link
           href="/auth/signup"
-          className="ring-none ring-inset bg-amber-50 rounded-lg p-1 text-amber-600 truncate hover:ring-1 ring-amber-600 transition-all"
+          className="ring-1 ring-custom-amber ring-inset bg-custom-amber-100 rounded-lg p-1 text-custom-amber truncate hover:bg-yellow-50"
         >
           Sign up
         </Link>
