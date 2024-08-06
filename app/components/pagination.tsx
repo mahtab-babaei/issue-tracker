@@ -14,7 +14,7 @@ interface Props {
   currentPage: number;
 }
 
-const pagination = ({ itemCount, pageSize, currentPage }: Props) => {
+const Pagination = ({ itemCount, pageSize, currentPage }: Props) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -69,4 +69,4 @@ const pagination = ({ itemCount, pageSize, currentPage }: Props) => {
   );
 };
 
-export default pagination;
+export default Pagination;

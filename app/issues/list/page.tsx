@@ -1,4 +1,4 @@
-import Pagination from "@/app/components/pagination";
+import Pagination from "@/app/components/Pagination";
 import prisma from "@/prisma/client";
 import { Status } from "@prisma/client";
 import IssueActions from "./IssueActions";
