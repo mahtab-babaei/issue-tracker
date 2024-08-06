@@ -1,4 +1,4 @@
-import Pagination from "@/app/components/Pagination";
+import { Pagination } from "@/app/components";
 import prisma from "@/prisma/client";
 import { Status } from "@prisma/client";
 import IssueActions from "./IssueActions";
@@ -35,7 +35,7 @@ const IssuesPage = async ({ searchParams }: Props) => {
   const issueCount = await prisma.issue.count({ where });
 
   return (
-    <Flex direction='column' gap='3'> 
+    <Flex direction="column" gap="3">
       <IssueActions />
       <IssueTable issues={issues} searchParams={searchParams} />
       <Pagination
